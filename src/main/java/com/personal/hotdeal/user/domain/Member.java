@@ -8,9 +8,9 @@ import lombok.RequiredArgsConstructor;
 
 @Entity @Getter
 @RequiredArgsConstructor
-public class User {
+public class Member {
     @Id
-    @Column(name = "user_id")
+    @Column(name = "member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -23,7 +23,7 @@ public class User {
     private Role role;
 
     @Builder
-    public User(Long id, String email, String password, Role role) {
+    public Member(Long id, String email, String password, Role role) {
         this.id = id;
         this.email = email;
         this.password = password;
