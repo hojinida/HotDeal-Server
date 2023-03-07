@@ -1,6 +1,6 @@
-package com.personal.hotdeal.user.domain.repository;
+package com.personal.hotdeal.member.domain.repository;
 
-import com.personal.hotdeal.user.domain.Member;
+import com.personal.hotdeal.member.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

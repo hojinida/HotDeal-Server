@@ -1,8 +1,8 @@
-package com.personal.hotdeal.user.presentation;
+package com.personal.hotdeal.member.presentation;
 
 
-import com.personal.hotdeal.user.application.MemberService;
-import com.personal.hotdeal.user.presentation.dto.JoinRequestDto;
+import com.personal.hotdeal.member.application.MemberService;
+import com.personal.hotdeal.member.presentation.dto.JoinRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
