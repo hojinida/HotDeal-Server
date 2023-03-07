@@ -25,7 +25,7 @@ public class LoginFilter implements Filter {
             if (isLoginCheckPath(requestURI)) {
                 log.info("인증 체크 로직 실행 {}", requestURI);
                 HttpSession session = httpRequest.getSession(false);
-                if (session == null || session.getAttribute("login") == null) {
+                if (session == null || session.getAttribute(SessionConst.LOGIN_MEMBER) == null) {
                     log.info("미인증 사용자 요청 {}", requestURI);
                     //로그인으로 리다이렉트
                     httpResponse.sendRedirect("/login?redirectURL=" + requestURI);

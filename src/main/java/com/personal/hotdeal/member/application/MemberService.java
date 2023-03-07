@@ -1,11 +1,11 @@
-package com.personal.hotdeal.user.application;
+package com.personal.hotdeal.member.application;
 
 import com.personal.hotdeal.common.exception.CustomException;
 import com.personal.hotdeal.common.exception.ErrorCode;
-import com.personal.hotdeal.user.domain.Member;
-import com.personal.hotdeal.user.domain.Role;
-import com.personal.hotdeal.user.domain.repository.MemberRepository;
-import com.personal.hotdeal.user.presentation.dto.JoinRequestDto;
+import com.personal.hotdeal.member.domain.Member;
+import com.personal.hotdeal.member.domain.Role;
+import com.personal.hotdeal.member.domain.repository.MemberRepository;
+import com.personal.hotdeal.member.presentation.dto.JoinRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

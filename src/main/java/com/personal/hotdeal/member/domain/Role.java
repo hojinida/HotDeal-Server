@@ -1,4 +1,4 @@
-package com.personal.hotdeal.user.domain;
+package com.personal.hotdeal.member.domain;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

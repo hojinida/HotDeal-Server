@@ -1,4 +1,4 @@
-package com.personal.hotdeal.user.presentation.dto;
+package com.personal.hotdeal.member.presentation.dto;
 
 
 import lombok.AllArgsConstructor;
