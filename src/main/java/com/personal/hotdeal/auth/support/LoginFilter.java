@@ -1,6 +1,9 @@
 package com.personal.hotdeal.auth.support;
 
+import com.personal.hotdeal.common.exception.CustomException;
+import com.personal.hotdeal.common.exception.ErrorCode;
 import jakarta.servlet.*;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -8,11 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.PatternMatchUtils;
 
 import java.io.IOException;
-import java.util.UUID;
 
 @Slf4j
 public class LoginFilter implements Filter {
-    private static final String[] whitelist = {"/", "/member/join", "/login", "/logout", "/css/*"};
+    private static final String[] whitelist = {"/", "/api/member", "/api/auth/login", "/logout", "/css/*"};
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -25,11 +27,17 @@ public class LoginFilter implements Filter {
             if (isLoginCheckPath(requestURI)) {
                 log.info("인증 체크 로직 실행 {}", requestURI);
                 HttpSession session = httpRequest.getSession(false);
-                if (session == null || session.getAttribute(SessionConst.LOGIN_MEMBER) == null) {
+                Cookie[] cookies = ((HttpServletRequest) request).getCookies();
+                Cookie findCookie=null;
+                for (Cookie cookie : cookies) {
+                    log.info(cookie.getName());
+                    if ("sessionId".equals(cookie.getName())) {
+                        findCookie=cookie;
+                    }
+                }
+                if (findCookie==null || session == null || session.getAttribute(findCookie.getValue()) == null) {
                     log.info("미인증 사용자 요청 {}", requestURI);
-                    //로그인으로 리다이렉트
-                    httpResponse.sendRedirect("/login?redirectURL=" + requestURI);
-                    return;
+                    throw new CustomException(ErrorCode.USER_UNAUTORIZED);
                 }
             }
             chain.doFilter(request, response);
