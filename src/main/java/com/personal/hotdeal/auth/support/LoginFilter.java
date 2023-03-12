@@ -1,5 +1,7 @@
 package com.personal.hotdeal.auth.support;
 
+import com.personal.hotdeal.common.exception.CustomException;
+import com.personal.hotdeal.common.exception.ErrorCode;
 import jakarta.servlet.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,9 +37,7 @@ public class LoginFilter implements Filter {
                 }
                 if (findCookie==null || session == null || session.getAttribute(findCookie.getValue()) == null) {
                     log.info("미인증 사용자 요청 {}", requestURI);
-                    //로그인으로 리다이렉트
-                    //httpResponse.sendRedirect("/api/auth/login?redirectURL=" + requestURI);
-                    return;
+                    throw new CustomException(ErrorCode.USER_UNAUTORIZED);
                 }
             }
             chain.doFilter(request, response);
