@@ -1,15 +1,15 @@
 spring:
   datasource:
-    url:  jdbc:h2:tcp://localhost/~/test
-    driverClassName: org.h2.Driver
-    username: sa
-    password:
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+    url:  jdbc:mysql://db-flde3.pub-cdb.ntruss.com:3306/hot-deal
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: hojin
+    password: Janghojin00@
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2-console
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: create
     properties:
