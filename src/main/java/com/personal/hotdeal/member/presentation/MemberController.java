@@ -1,6 +1,5 @@
 package com.personal.hotdeal.member.presentation;
 
-
 import com.personal.hotdeal.member.application.MemberService;
 import com.personal.hotdeal.member.application.dto.MemberResponseDto;
 import com.personal.hotdeal.member.presentation.dto.JoinRequestDto;
