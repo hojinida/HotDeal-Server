@@ -14,7 +14,7 @@ pipeline {
                 withCredentials([sshUserPrivateKey(credentialsId: CREDENTIALS_ID, keyFileVariable: 'SSH_KEY')]) {
                     sh """
                         eval \$(ssh-agent -s)
-                        ssh-add - <<< \$(echo \${SSH_KEY})
+                        echo ${SSH_KEY} | ssh-add -
                         ssh -T -o StrictHostKeyChecking=no -p ${env.REMOTE_PORT} root@${env.REMOTE_HOST} <<EOF
                             rm -rf /home/docker-image/deploy/*
                             exit
