@@ -3,6 +3,7 @@ package com.personal.hotdeal.common.exception;
 import lombok.Builder;
 import lombok.Getter;
 
+
 @Getter
 public class ErrorResponse {
     private String code;
