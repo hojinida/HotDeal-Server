@@ -27,11 +27,11 @@ EOF
                                     ./deploy.sh
                                     exit
 EOF
-                            }
+                            '''
                         }
                     }
                 }
             }
         }
     }
-}'''
+}
