@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Deploy') {
             steps {
-                withCredentials([sshUserPrivateKey(credentialsId: CREDENTIALS_ID, keyFileVariable: 'SSH_KEY')]) {
+                withCredentials([sshUserPrivateKey(credentialsId: CREDENTIALS_ID, keyFileVariable: 'SSH_KEY', passphraseVariable: 'passphrase')]) {
                     script {
                         def sshAgent = sshagent(['SSH_KEY']) {
                             sh '''
