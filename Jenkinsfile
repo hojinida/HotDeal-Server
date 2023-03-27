@@ -12,22 +12,24 @@ pipeline {
         stage('Deploy') {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: CREDENTIALS_ID, keyFileVariable: 'SSH_KEY')]) {
-                    sh """
-                        eval \$(ssh-agent -s)
-                        echo ${SSH_KEY} | ssh-add -
-                        ssh -T -o StrictHostKeyChecking=no -p ${env.REMOTE_PORT} root@${env.REMOTE_HOST} <<EOF
-                            rm -rf /home/docker-image/deploy/*
-                            exit
-                        EOF
-                        scp -r -P ${env.REMOTE_PORT} ${env.WORKSPACE_DIR}/* root@${env.REMOTE_HOST}:/home/docker-image/deploy/
-                        ssh -T -o StrictHostKeyChecking=no -p ${env.REMOTE_PORT} root@${env.REMOTE_HOST} <<EOF
-                            cd /home/docker-image
-                            docker image build -t hotdeal .
-                            ./deploy.sh
-                            exit
-                        EOF
-                        eval \$(ssh-agent -k)
-                    """
+                    script {
+                        def sshAgent = sshagent(['SSH_KEY']) {
+                            sh '''
+                                ssh-add "${SSH_KEY}" <<< "${passphrase}"
+                                ssh -T -o StrictHostKeyChecking=no -p ${env.REMOTE_PORT} root@${env.REMOTE_HOST} <<EOF
+                                    rm -rf /home/docker-image/deploy/*
+                                    exit
+                                EOF
+                                scp -r -P ${env.REMOTE_PORT} ${env.WORKSPACE_DIR}/* root@${env.REMOTE_HOST}:/home/docker-image/deploy/
+                                ssh -T -o StrictHostKeyChecking=no -p ${env.REMOTE_PORT} root@${env.REMOTE_HOST} <<EOF
+                                    cd /home/docker-image
+                                    docker image build -t hotdeal .
+                                    ./deploy.sh
+                                    exit
+                                EOF
+                            '''
+                        }
+                    }
                 }
             }
         }
