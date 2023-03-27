@@ -19,15 +19,15 @@ pipeline {
                                 ssh -T -o StrictHostKeyChecking=no -p ${env.REMOTE_PORT} root@${env.REMOTE_HOST} <<EOF
                                     rm -rf /home/docker-image/deploy/*
                                     exit
-                                EOF
+EOF
                                 scp -r -P ${env.REMOTE_PORT} ${env.WORKSPACE_DIR}/* root@${env.REMOTE_HOST}:/home/docker-image/deploy/
                                 ssh -T -o StrictHostKeyChecking=no -p ${env.REMOTE_PORT} root@${env.REMOTE_HOST} <<EOF
                                     cd /home/docker-image
                                     docker image build -t hotdeal .
                                     ./deploy.sh
                                     exit
-                                EOF
-                            '''
+EOF
+                            }
                         }
                     }
                 }
