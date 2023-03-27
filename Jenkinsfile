@@ -15,7 +15,7 @@ pipeline {
                     script {
                         def sshAgent = sshagent(['SSH_KEY']) {
                             sh '''
-                                ssh-add "${SSH_KEY}" <<< "${passphrase}"
+                                echo "${passphrase}" | ssh-add "${SSH_KEY}"
                                 ssh -T -o StrictHostKeyChecking=no -p ${env.REMOTE_PORT} root@${env.REMOTE_HOST} <<EOF
                                     rm -rf /home/docker-image/deploy/*
                                     exit
